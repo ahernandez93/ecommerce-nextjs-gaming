@@ -25,4 +25,29 @@ export class Auth {
             throw new Error("Error al registrar el usuario: " + error.message);
         }
     }
+
+    async login(data) {
+        try {
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.AUTH.LOGIN}`;
+            const params = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            };
+            const response = await fetch(url, params);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => null);
+                const message =
+                    errorData?.error?.message ||
+                    errorData?.message ||
+                    `Error HTTP ${response.status}`;
+                throw new Error(message);
+            }
+            return await response.json();
+        } catch (error) {
+            throw new Error("Error al iniciar sesión: " + error.message);
+        }
+    }
 }

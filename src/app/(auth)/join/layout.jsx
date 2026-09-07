@@ -1,8 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 import { XIcon } from "lucide-react";
 
 export default function JoinLayout({ children }) {
+    const { user } = useAuth();
+    const router = useRouter();
+
+    if (user) {
+        router.push("/");
+    }
+
     return (
         <div className="relative flex min-h-svh">
             <header className="absolute top-0 left-0 z-10 flex w-full items-center justify-between p-[15px]">

@@ -1,12 +1,17 @@
 "use client";
 
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { initialValues, validationSchema } from "./register-form.form";
+import { Auth } from "@/api/auth";
+
+const authCtrl = new Auth();
 
 export function RegisterForm() {
+    const router = useRouter();
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: validationSchema(),
@@ -14,16 +19,19 @@ export function RegisterForm() {
         validateOnBlur: true,
 
         onSubmit: async (formValues) => {
-            console.log("FORMULARIO ENVIADO");
             console.log(formValues);
-
-            // Más adelante aquí enviaremos los datos a Strapi.
+            try {
+                await authCtrl.register(formValues);
+                router.push("/join/sign-in");
+            } catch (error) {
+                console.log(error);
+            }
         },
     });
 
     const emailError = formik.touched.email && formik.errors.email;
     const usernameError = formik.touched.username && formik.errors.username;
-    const nameError = formik.touched.name && formik.errors.name;
+    const firstNameError = formik.touched.firstName && formik.errors.firstName;
     const passwordError = formik.touched.password && formik.errors.password;
 
     return (
@@ -85,27 +93,32 @@ export function RegisterForm() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Nombre y apellidos</Label>
+                {/* <div className="space-y-2">
+                    <Label htmlFor="firstName">Nombre y apellidos</Label>
 
                     <Input
-                        id="name"
-                        name="name"
+                        id="firstName"
+                        name="firstName"
                         type="text"
                         placeholder="Nombre y apellidos"
-                        value={formik.values.name}
+                        value={formik.values.firstName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        aria-invalid={Boolean(nameError)}
-                        aria-describedby={nameError ? "name-error" : undefined}
+                        aria-invalid={Boolean(firstNameError)}
+                        aria-describedby={
+                            firstNameError ? "firstname-error" : undefined
+                        }
                     />
 
-                    {nameError && (
-                        <p id="name-error" className="text-sm text-destructive">
-                            {formik.errors.name}
+                    {firstNameError && (
+                        <p
+                            id="firstname-error"
+                            className="text-sm text-destructive"
+                        >
+                            {formik.errors.firstName}
                         </p>
                     )}
-                </div>
+                </div> */}
 
                 <div className="space-y-2">
                     <Label htmlFor="password">Contraseña</Label>

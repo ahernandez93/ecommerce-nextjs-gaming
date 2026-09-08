@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
             lang="es"
             className={`${geistSans.variable} ${geistMono.variable} dark`}
         >
-            <body className="h-full antialiased">
+            <body className="min-h-svh font-sans antialiased">
                 <AuthProvider>{children}</AuthProvider>
             </body>
         </html>

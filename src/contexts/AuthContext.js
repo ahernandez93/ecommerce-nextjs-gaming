@@ -19,7 +19,6 @@ export function AuthProvider(props) {
         try {
             tokenCtrl.setToken(token);
             const response = await userCtrl.getMe();
-            console.log(response);
             setUser(response);
             setToken(token);
             setLoading(false);

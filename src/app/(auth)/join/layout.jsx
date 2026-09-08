@@ -12,6 +12,7 @@ export default function JoinLayout({ children }) {
 
     if (user) {
         router.push("/");
+        return null;
     }
 
     return (

@@ -3,12 +3,11 @@
 import { useEffect } from "react";
 import { LogOut, Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
-
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { Info } from "./_components/Info";
+import * as SettingsComponents from "./_components/settings";
 
 export default function AccountPage() {
     const router = useRouter();
@@ -109,7 +108,12 @@ export default function AccountPage() {
                     value="settings"
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
-                    <p>Ajustes</p>
+                    <SettingsComponents.ChangeNameForm />
+
+                    <div className="mt-10 grid gap-10 lg:grid-cols-2">
+                        <SettingsComponents.ChangeEmailForm />
+                        <SettingsComponents.ChangePasswordForm />
+                    </div>
                 </TabsContent>
             </Tabs>
         </div>

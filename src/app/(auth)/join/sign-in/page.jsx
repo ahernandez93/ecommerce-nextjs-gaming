@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LoginForm } from "./_components/LoginForn";
+import { LoginForm } from "./_components/LoginForm";
 
 export const metadata = {
     title: "Iniciar sesión",

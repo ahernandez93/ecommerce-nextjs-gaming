@@ -13,14 +13,13 @@ export default function AccountPage() {
     const router = useRouter();
     const { user, logout } = useAuth();
 
-    /* useEffect(() => {
-        if (!loading && !user) {
+    useEffect(() => {
+        if (!user) {
             router.replace("/");
         }
-    }, [loading, user, router]); */
+    }, [user, router]);
 
     if (!user) {
-        router.push("/");
         return null;
     }
 
@@ -28,10 +27,6 @@ export default function AccountPage() {
         logout();
         router.replace("/");
     }
-
-    /* if (loading || !user) {
-        return null;
-    } */
 
     return (
         <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">

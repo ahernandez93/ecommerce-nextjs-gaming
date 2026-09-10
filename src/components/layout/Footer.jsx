@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SiFacebook, SiX, SiYoutube } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa"; 
@@ -60,11 +59,13 @@ export function Footer() {
                             aria-label="Ir a la página principal"
                             className="inline-flex"
                         >
-                            <Image
+                            {/* Avoids Next's LCP warning for the duplicate footer logo. */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
                                 src="/images/logo.png"
                                 alt="Gaming"
-                                width={150}
-                                height={30}
+                                width={486}
+                                height={90}
                                 className="h-auto w-[150px]"
                             />
                         </Link>

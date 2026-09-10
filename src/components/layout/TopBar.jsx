@@ -16,8 +16,9 @@ export function TopBar() {
                     <Image
                         src="/images/logo.png"
                         alt="Gaming"
-                        width={150}
-                        height={30}
+                        width={486}
+                        height={90}
+                        loading="eager"
                         priority
                         className="h-[30px] w-auto"
                     />

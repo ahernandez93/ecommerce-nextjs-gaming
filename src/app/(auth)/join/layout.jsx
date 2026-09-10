@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { XIcon } from "lucide-react";
@@ -10,8 +11,13 @@ export default function JoinLayout({ children }) {
     const { user } = useAuth();
     const router = useRouter();
 
+    useEffect(() => {
+        if (user) {
+            router.replace("/");
+        }
+    }, [user, router]);
+
     if (user) {
-        router.push("/");
         return null;
     }
 
@@ -22,8 +28,8 @@ export default function JoinLayout({ children }) {
                     <Image
                         src="/images/logo.png"
                         alt="Gaming"
-                        width={150}
-                        height={30}
+                        width={486}
+                        height={90}
                         priority
                         className="h-[30px] w-auto"
                     />

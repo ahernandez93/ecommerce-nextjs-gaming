@@ -96,6 +96,7 @@ export default function AccountPage() {
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
                     <Address.AddAddress />
+                    <Address.ListAddresses />
                 </TabsContent>
 
                 <TabsContent

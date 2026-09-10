@@ -40,4 +40,24 @@ export class Address {
             throw new Error(`Error creando direccion: ${error.message}`);
         }
     }
+
+    async getAll(userId) {
+        try {
+            const filters = `filters[user][id][$eq]=${userId}`;
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}?${filters}`;
+
+            const response = await authFetch(url);
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Error al obtener direcciones");
+            }
+
+            return result;
+        } catch (error) {
+            throw new Error(
+                `Error obteniendo las direcciones: ${error.message}`,
+            );
+        }
+    }
 }

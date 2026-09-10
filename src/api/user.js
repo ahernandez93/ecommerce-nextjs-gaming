@@ -1,6 +1,4 @@
-import { ENV } from "@/lib/constants";
-import { authFetch } from "@/lib/authFetch";
-
+import { ENV, authFetch } from "@/lib";
 export class User {
     async getMe() {
         try {

@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { LogOut, Settings } from "lucide-react";
+import { LogOut, Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Info, Settings as SettingsComponents, Address } from "./_components";
+import { Info, Settings, Address } from "./_components";
 
 export default function AccountPage() {
     const router = useRouter();
@@ -60,7 +60,7 @@ export default function AccountPage() {
                             aria-label="Ajustes"
                             className="ml-auto gap-2 rounded-none border-b-2 border-transparent px-4 py-3 data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
                         >
-                            <Settings className="size-4" />
+                            <SettingsIcon className="size-4" />
                             <span className="hidden sm:inline">Ajustes</span>
                         </TabsTrigger>
                     </TabsList>
@@ -102,11 +102,11 @@ export default function AccountPage() {
                     value="settings"
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
-                    <SettingsComponents.ChangeNameForm />
+                    <Settings.ChangeNameForm />
 
                     <div className="mt-10 grid gap-10 lg:grid-cols-2">
-                        <SettingsComponents.ChangeEmailForm />
-                        <SettingsComponents.ChangePasswordForm />
+                        <Settings.ChangeEmailForm />
+                        <Settings.ChangePasswordForm />
                     </div>
                 </TabsContent>
             </Tabs>

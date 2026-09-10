@@ -1,5 +1,4 @@
-import { TopBar } from "@/components/layout/TopBar";
-import { Footer } from "@/components/layout/Footer";
+import { TopBar, Footer } from "@/components/Layout";
 
 export default function StoreLayout({ children }) {
     return (

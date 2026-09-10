@@ -1,4 +1,4 @@
-import { ENV } from "@/lib/constants";
+import { ENV } from "@/lib";
 import { jwtDecode } from "jwt-decode";
 
 export class Token {

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { initialValues, validationSchema } from "./ChangeEmailForm.form";
+import { initialValues, validationSchema } from "../ChangeEmailForm/ChangeEmailForm.form";
 
 const userCtrl = new User();
 

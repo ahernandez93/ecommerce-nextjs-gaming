@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Info } from "./_components/Info";
-import * as SettingsComponents from "./_components/settings";
+import { Info, Settings as SettingsComponents, Address } from "./_components";
 
 export default function AccountPage() {
     const router = useRouter();
@@ -96,7 +95,7 @@ export default function AccountPage() {
                     value="addresses"
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
-                    <p>Mis direcciones</p>
+                    <Address.AddAddress />
                 </TabsContent>
 
                 <TabsContent

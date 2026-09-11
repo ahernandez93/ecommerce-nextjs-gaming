@@ -6,7 +6,7 @@ export async function authFetch(url, params) {
 
     const logOut = () => {
         tokenCtrl.removeToken();
-        window.location.replace = ("/");
+        window.location.replace("/");
     };
 
     if (!token) {

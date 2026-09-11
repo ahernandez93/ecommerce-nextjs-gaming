@@ -75,13 +75,12 @@ export function AddressForm({ onClose, onReload, addressId, address }) {
                     postal_code: formValue.postal_code.trim(),
                     phone: formValue.phone.trim(),
                 };
-                console.log(data)
 
-                // if (addressId) {
-                //     await addressCtrl.update(data, addressId);
-                // } else {
+                if (addressId) {
+                    await addressCtrl.update(data, addressId);
+                } else {
                 await addressCtrl.create(data, user.id);
-                // }
+                }
 
                 onReload?.();
                 onClose?.();

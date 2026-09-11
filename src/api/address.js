@@ -1,5 +1,4 @@
 import { ENV, authFetch } from "@/lib";
-
 export class Address {
     async create(data, userId) {
         try {
@@ -16,28 +15,21 @@ export class Address {
                     },
                 }),
             };
-            console.log({
-                data: {
-                    ...data,
-                    user: userId,
-                },
-            });
 
             const response = await authFetch(url, params);
-            const result = await response.json();
+            const result = await response.json().catch(() => null);
 
             if (!response.ok) {
-                const errorData = await response.json().catch(() => null);
                 const message =
-                    errorData?.error?.message ||
-                    errorData?.message ||
+                    result?.error?.message ||
+                    result?.message ||
                     `Error HTTP ${response.status}`;
                 throw new Error(message);
             }
 
             return result;
         } catch (error) {
-            throw new Error(`Error creando direccion: ${error.message}`);
+            throw new Error(`Error creando dirección: ${error.message}`);
         }
     }
 
@@ -47,10 +39,14 @@ export class Address {
             const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}?${filters}`;
 
             const response = await authFetch(url);
-            const result = await response.json();
+            const result = await response.json().catch(() => null);
 
             if (!response.ok) {
-                throw new Error(data.message || "Error al obtener direcciones");
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+                throw new Error(message);
             }
 
             return result;
@@ -58,6 +54,58 @@ export class Address {
             throw new Error(
                 `Error obteniendo las direcciones: ${error.message}`,
             );
+        }
+    }
+
+    async update(data, addressId) {
+        try {
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+            const params = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ data }),
+            };
+
+            const response = await authFetch(url, params);
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+                throw new Error(message);
+            }
+
+            return result;
+        } catch (error) {
+            throw new Error(`Error actualizando dirección: ${error.message}`);
+        }
+    }
+
+    async delete(addressId) {
+        try {
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESSES}/${addressId}`;
+            const params = {
+                method: "DELETE",
+            };
+
+            const response = await authFetch(url, params);
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+                throw new Error(message);
+            }
+
+            return result;
+        } catch (error) {
+            throw new Error(`Error eliminando dirección: ${error.message}`);
         }
     }
 }

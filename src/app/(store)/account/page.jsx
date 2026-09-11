@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { LogOut, Settings as SettingsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -11,6 +11,12 @@ import { Info, Settings, Address } from "./_components";
 export default function AccountPage() {
     const router = useRouter();
     const { user, logout } = useAuth();
+
+    const [reloadAddresses, setReloadAddresses] = useState(false);
+
+    const handleReloadAddresses = () => {
+        setReloadAddresses((current) => !current);
+    };
 
     useEffect(() => {
         if (!user) {
@@ -95,8 +101,11 @@ export default function AccountPage() {
                     value="addresses"
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
-                    <Address.AddAddress />
-                    <Address.ListAddresses />
+                    <Address.AddAddress onReload={handleReloadAddresses} />
+                    <Address.ListAddresses
+                        reload={reloadAddresses}
+                        onReload={handleReloadAddresses}
+                    />
                 </TabsContent>
 
                 <TabsContent

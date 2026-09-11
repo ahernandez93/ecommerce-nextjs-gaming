@@ -4,7 +4,8 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "ecommerce-strapi-ah.s3.us-east-1.amazonaws.com/",
+                hostname: "ecommerce-strapi-ah.s3.us-east-1.amazonaws.com",
+                pathname: "/**",
             },
         ],
     },

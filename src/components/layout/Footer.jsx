@@ -51,7 +51,7 @@ export function Footer() {
 
     return (
         <footer className="bg-surface-deep py-8">
-            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto w-full max-w-[1127px] px-4 sm:px-6 lg:px-8 xl:px-0  ">
                 <div className="grid gap-8 md:grid-cols-3">
                     <div>
                         <Link

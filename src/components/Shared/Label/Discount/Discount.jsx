@@ -4,17 +4,13 @@ export function Discount({ children, className }) {
     return (
         <span
             className={cn(
-                "absolute left-0 z-[2]",
-                "rounded-[8px_8px_0]",
+                "absolute z-[2] inline-block whitespace-nowrap",
+                "rounded-tl-[8px] rounded-tr-[8px]",
+                "rounded-br-[3px] rounded-bl-[8px]",
                 "bg-primary",
-                "px-1 pb-[1px] pt-[3px]",
-                "text-[13px] font-bold leading-normal text-primary-foreground",
-                "after:absolute after:bottom-0 after:top-0",
-                "after:-right-1 after:z-[-1]",
-                "after:w-full after:skew-x-[16deg]",
-                "after:rounded-[10px_5px]",
-                "after:bg-primary",
-                "after:content-['']",
+                "px-1 pb-px pt-[3px]",
+                "text-[13px] font-bold leading-[16px]",
+                "text-primary-foreground",
                 className,
             )}
         >

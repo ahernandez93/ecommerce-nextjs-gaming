@@ -42,15 +42,10 @@ export function BannerLastGamePublished() {
         return null;
     }
 
-    const price = fn.calcDiscountedPrice(
-        game.price,
-        game.discount,
-    );
+    const price = fn.calcDiscountedPrice(game.price, game.discount);
 
     const relativeDate = game.releaseDate
-        ? DateTime.fromISO(game.releaseDate)
-            .setLocale("es")
-            .toRelative()
+        ? DateTime.fromISO(game.releaseDate).setLocale("es").toRelative()
         : null;
 
     const formattedPrice = new Intl.NumberFormat("en-US", {
@@ -80,26 +75,24 @@ export function BannerLastGamePublished() {
             />
 
             <Link
-                href={`/games/${game.slug}`}
+                href={`/games/${gameUrl}`}
                 aria-label={`Ver información de ${game.title}`}
                 className="absolute inset-0 z-10 flex items-center"
             >
-                <div className="mx-auto w-full max-w-[1127px] px-4">
+                <div className="mx-auto w-full max-w-[1127px] px-4 sm:px-6 lg:px-8 xl:px-0">
                     {relativeDate && (
                         <span className="text-xs font-bold text-primary">
                             {relativeDate}
                         </span>
                     )}
 
-                    <h2 className="mb-5 mt-1 text-2xl font-bold text-white">
+                    <h2 className="mb-5 mt-[5px] text-2xl font-bold text-white">
                         {game.title}
                     </h2>
 
                     <div className="relative flex items-center">
                         {Number(game.discount) > 0 && (
-                            <Label.Discount>
-                                -{game.discount}%
-                            </Label.Discount>
+                            <Label.Discount>-{game.discount}%</Label.Discount>
                         )}
 
                         <span

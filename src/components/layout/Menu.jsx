@@ -21,7 +21,7 @@ export async function Menu() {
             {platforms.map((platform) => (
                 <Link
                     key={platform.documentId}
-                    href={`/games/${platform.slug}`}
+                    href={`/games/platform/${platform.slug}`}
                     className="flex items-center px-[15px] py-5 text-sm font-medium hover:text-primary"
                 >
                     {platform.icon?.url && (

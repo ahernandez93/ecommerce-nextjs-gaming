@@ -15,7 +15,7 @@ const platformsId = {
 
 export default function HomePage() {
     return (
-        <div className="-mt-24">
+        <>
             <Home.BannerLastGamePublished />
 
             <Separator height={100} />
@@ -59,6 +59,6 @@ export default function HomePage() {
             </Container>
 
             <Separator height={100} />
-        </div>
+        </>
     );
 }

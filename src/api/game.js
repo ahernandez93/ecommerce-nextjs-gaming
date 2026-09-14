@@ -181,4 +181,49 @@ export class Game {
             throw new Error(`Error al buscar juegos: ${error.message}`);
         }
     }
+
+    async getBySlug(slug) {
+        try {
+            const normalizedSlug = String(slug ?? "").trim();
+
+            if (!normalizedSlug) {
+                throw new Error("El slug del juego es obligatorio");
+            }
+
+            const params = new URLSearchParams();
+
+            params.set("filters[slug][$eq]", normalizedSlug);
+            params.set("pagination[pageSize]", "1");
+            params.set("populate[wallpaper]", "true");
+            params.set("populate[cover]", "true");
+            params.set("populate[screenshots]", "true");
+            params.set("populate[platform][populate][icon]", "true");
+
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}?${params.toString()}`;
+            // console.log("URL GET BY SLUG:", url);
+
+            const response = await fetch(url, {
+                next: {
+                    revalidate: 60,
+                    tags: [`game:${normalizedSlug}`],
+                },
+            });
+
+            const result = await response.json().catch(() => null);
+            // console.log("RESPUESTA GET BY SLUG:", result);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+
+                throw new Error(message);
+            }
+
+            return result?.data?.[0] ?? null;
+        } catch (error) {
+            throw new Error(`Error al obtener el juego: ${error.message}`);
+        }
+    }
 }

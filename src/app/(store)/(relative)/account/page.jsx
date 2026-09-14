@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Info, Settings, Address } from "./_components";
+import { Container } from "@/components/Shared";
 
 export default function AccountPage() {
     const router = useRouter();
@@ -34,7 +35,7 @@ export default function AccountPage() {
     }
 
     return (
-        <div className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        <Container>
             <Info user={user} />
 
             <Tabs defaultValue="orders" className="mt-[50px]">
@@ -120,6 +121,6 @@ export default function AccountPage() {
                     </div>
                 </TabsContent>
             </Tabs>
-        </div>
+        </Container>
     );
 }

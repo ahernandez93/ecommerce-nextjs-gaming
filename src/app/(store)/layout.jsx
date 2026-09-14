@@ -5,7 +5,7 @@ export default function StoreLayout({ children }) {
         <div className="flex min-h-svh flex-col">
             <TopBar />
 
-            <main className="flex-1 pt-24">{children}</main>
+            <main className="flex-1">{children}</main>
 
             <Footer />
         </div>

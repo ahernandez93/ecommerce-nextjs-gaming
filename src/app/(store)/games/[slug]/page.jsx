@@ -2,6 +2,7 @@ import { cache } from "react";
 import { notFound } from "next/navigation";
 import { Game as GameApi } from "@/api";
 import { Game } from "./_components/Game";
+import { Separator } from "@/components/Shared";
 
 const gameCtrl = new GameApi();
 
@@ -45,6 +46,9 @@ export default async function GamePage({ params }) {
                 image={game.wallpaper?.url}
                 alt={`Wallpaper de ${game.title}`}
             />
+            <Game.Panel game={game} />
+
+            <Separator height={50} />
         </>
     );
 }

@@ -8,4 +8,6 @@ export * from "./NoResult";
 export * from "./Pagination";
 export * from "./Container";
 export * from "./Separator";
+export * from "./WishlistIcon";
+
 

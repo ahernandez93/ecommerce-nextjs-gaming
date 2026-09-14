@@ -1,53 +1,26 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 import { Game } from "@/api";
 import { GridGames } from "@/components/Shared";
 
 const gameCtrl = new Game();
 
-export function LatestGames({ title, limit = 9, platformId = null }) {
-    const [games, setGames] = useState(null);
-    const [error, setError] = useState(null);
+export async function LatestGames({ title, limit = 9, platformId = null }) {
+    let games = [];
 
-    useEffect(() => {
-        let ignore = false;
+    try {
+        const response = await gameCtrl.getLatestPublished({
+            limit,
+            platformId,
+        });
 
-        gameCtrl
-            .getLatestPublished({
-                limit,
-                platformId,
-            })
-            .then((response) => {
-                if (ignore) return;
+        games = response?.data ?? [];
+    } catch (error) {
+        console.error("No se pudieron cargar los juegos:", error);
 
-                setGames(response?.data ?? []);
-                setError(null);
-            })
-            .catch((error) => {
-                if (ignore) return;
-
-                console.error("No se pudieron cargar los juegos:", error);
-
-                setError("No se pudieron cargar los juegos.");
-            });
-
-        return () => {
-            ignore = true;
-        };
-    }, [limit, platformId]);
-
-    if (error) {
         return (
             <p role="alert" className="text-sm text-destructive">
-                {error}
+                No se pudieron cargar los juegos.
             </p>
         );
-    }
-
-    if (games === null) {
-        return null;
     }
 
     if (games.length === 0) {

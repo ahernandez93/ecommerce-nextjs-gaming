@@ -1,5 +1,5 @@
 import { Home } from "@/components/Home";
-import { BannerAd, BarTrust } from "@/components/Shared";
+import { BannerAd, BarTrust, Container, Separator } from "@/components/Shared";
 
 export const metadata = {
     title: "Ecommerce Gaming",
@@ -12,18 +12,6 @@ const platformsId = {
     nintendo: 6,
     pc: 8
 };
-
-function Container({ children }) {
-    return (
-        <div className="mx-auto w-full max-w-[1127px] px-4 sm:px-6 lg:px-8 xl:px-0">
-            {children}
-        </div>
-    );
-}
-
-function Separator({ height }) {
-    return <div aria-hidden="true" style={{ height }} />;
-}
 
 export default function HomePage() {
     return (

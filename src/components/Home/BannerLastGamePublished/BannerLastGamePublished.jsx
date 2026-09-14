@@ -1,42 +1,24 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { DateTime } from "luxon";
-
 import { Game } from "@/api";
-import { Label } from "@/components/Shared";
+import { Label, Container } from "@/components/Shared";
 import { fn } from "@/lib";
 
 const gameCtrl = new Game();
 
-export function BannerLastGamePublished() {
-    const [game, setGame] = useState(null);
+export async function BannerLastGamePublished() {
+    let game = null;
 
-    useEffect(() => {
-        let ignore = false;
+    try {
+        const response = await gameCtrl.getLastPublished();
 
-        gameCtrl
-            .getLastPublished()
-            .then((response) => {
-                if (ignore) return;
+        game = response?.data?.[0] ?? null;
+    } catch (error) {
+        console.error("No se pudo cargar el último juego publicado:", error);
 
-                setGame(response?.data?.[0] ?? null);
-            })
-            .catch((error) => {
-                if (ignore) return;
-
-                console.error(
-                    "No se pudo cargar el último juego publicado:",
-                    error,
-                );
-            });
-
-        return () => {
-            ignore = true;
-        };
-    }, []);
+        return null;
+    }
 
     if (!game?.wallpaper?.url) {
         return null;
@@ -58,12 +40,12 @@ export function BannerLastGamePublished() {
     return (
         <section
             className="
-            relative h-[600px] w-full overflow-hidden
-            after:absolute after:bottom-[-1px] after:left-0
-            after:z-20 after:h-[60px] after:w-full
-            after:bg-background
-            after:[clip-path:polygon(0_100%,100%_100%,0_0)]
-        "
+                relative h-[600px] w-full overflow-hidden
+                after:absolute after:bottom-[-1px] after:left-0
+                after:z-20 after:h-[60px] after:w-full
+                after:bg-background
+                after:[clip-path:polygon(0_100%,100%_100%,0_0)]
+            "
         >
             <Image
                 src={game.wallpaper.url}
@@ -75,11 +57,11 @@ export function BannerLastGamePublished() {
             />
 
             <Link
-                href={`/games/${gameUrl}`}
+                href={gameUrl}
                 aria-label={`Ver información de ${game.title}`}
                 className="absolute inset-0 z-10 flex items-center"
             >
-                <div className="mx-auto w-full max-w-[1127px] px-4 sm:px-6 lg:px-8 xl:px-0">
+                <Container>
                     {relativeDate && (
                         <span className="text-xs font-bold text-primary">
                             {relativeDate}
@@ -105,7 +87,7 @@ export function BannerLastGamePublished() {
                             {formattedPrice}
                         </span>
                     </div>
-                </div>
+                </Container>
             </Link>
         </section>
     );

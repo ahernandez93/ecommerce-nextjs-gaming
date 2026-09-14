@@ -3,12 +3,20 @@ import { ENV } from "@/lib";
 export class Game {
     async getLastPublished() {
         try {
-            const sort = "sort=publishedAt:desc";
-            const pagination = "pagination[limit]=1";
-            const populate = "populate=*";
-            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}?${populate}&${sort}&${pagination}`;
+            const params = new URLSearchParams();
 
-            const response = await fetch(url);
+            params.set("sort[0]", "publishedAt:desc");
+            params.set("pagination[limit]", "1");
+            params.set("populate", "*");
+
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}?${params.toString()}`;
+
+            const response = await fetch(url, {
+                next: {
+                    revalidate: 60,
+                },
+            });
+
             const result = await response.json().catch(() => null);
 
             if (!response.ok) {
@@ -16,13 +24,14 @@ export class Game {
                     result?.error?.message ||
                     result?.message ||
                     `Error HTTP ${response.status}`;
+
                 throw new Error(message);
             }
 
             return result;
         } catch (error) {
             throw new Error(
-                `Error al obtener el ultimo juego publicado: ${error.message}`,
+                `Error al obtener el último juego publicado: ${error.message}`,
             );
         }
     }
@@ -41,7 +50,12 @@ export class Game {
 
             const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}?${params.toString()}`;
 
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                next: {
+                    revalidate: 60,
+                },
+            });
+
             const result = await response.json().catch(() => null);
 
             if (!response.ok) {
@@ -49,13 +63,65 @@ export class Game {
                     result?.error?.message ||
                     result?.message ||
                     `Error HTTP ${response.status}`;
+
                 throw new Error(message);
             }
 
             return result;
         } catch (error) {
             throw new Error(
-                `Error al obtener los ultimos juegos publicados: ${error.message}`,
+                `Error al obtener los últimos juegos publicados: ${error.message}`,
+            );
+        }
+    }
+
+    async getGamesByPlatformSlug({
+        platformSlug,
+        page = 1,
+        pageSize = 9,
+    } = {}) {
+        try {
+            if (!platformSlug) {
+                throw new Error("El slug de la plataforma es obligatorio");
+            }
+
+            const params = new URLSearchParams({
+                "filters[platform][slug][$eq]": platformSlug,
+                "pagination[page]": String(page),
+                "pagination[pageSize]": String(pageSize),
+                "sort[0]": "publishedAt:desc",
+                populate: "*",
+            });
+
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}?${params.toString()}`;
+
+            const response = await fetch(url, {
+                cache: "no-store",
+            });
+
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+
+                throw new Error(message);
+            }
+
+            return {
+                data: result?.data ?? [],
+                pagination: result?.meta?.pagination ?? {
+                    page: 1,
+                    pageSize,
+                    pageCount: 0,
+                    total: 0,
+                },
+            };
+        } catch (error) {
+            throw new Error(
+                `Error al obtener los juegos de la plataforma: ${error.message}`,
             );
         }
     }

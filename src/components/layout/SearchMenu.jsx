@@ -1,15 +1,109 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { Search, X } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function SearchMenu({ isOpenSearch = false }) {
-    const [showSearch, setShowSearch] = useState(isOpenSearch);
+const SEARCH_DELAY = 400;
+
+export function SearchMenu() {
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const isSearchPage = pathname === "/search";
+
+    const initialSearchText = isSearchPage ? (searchParams.get("s") ?? "") : "";
+
+    /*
+     * Al cambiar pathname, React desmonta el estado anterior
+     * y crea uno nuevo para la ruta actual.
+     */
+    return (
+        <SearchMenuContent
+            key={pathname}
+            initialIsOpen={isSearchPage}
+            initialSearchText={initialSearchText}
+        />
+    );
+}
+
+function SearchMenuContent({ initialIsOpen, initialSearchText }) {
+    const router = useRouter();
+
+    const timeoutRef = useRef(null);
+
+    const [showSearch, setShowSearch] = useState(initialIsOpen);
+    const [searchText, setSearchText] = useState(initialSearchText);
+
+    const clearPendingSearch = useCallback(() => {
+        if (!timeoutRef.current) {
+            return;
+        }
+
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            clearPendingSearch();
+        };
+    }, [clearPendingSearch]);
+
+    const navigateToSearch = useCallback(
+        (text) => {
+            const normalizedText = text.trim();
+
+            const params = new URLSearchParams();
+
+            if (normalizedText) {
+                params.set("s", normalizedText);
+            }
+
+            const query = params.toString();
+
+            const url = query ? `/search?${query}` : "/search";
+
+            router.replace(url, {
+                scroll: true,
+            });
+        },
+        [router],
+    );
 
     function openCloseSearch() {
+        if (showSearch) {
+            clearPendingSearch();
+        }
+
         setShowSearch((previousState) => !previousState);
+    }
+
+    function handleSearchChange(event) {
+        const value = event.target.value;
+
+        setSearchText(value);
+        clearPendingSearch();
+
+        timeoutRef.current = setTimeout(() => {
+            navigateToSearch(value);
+        }, SEARCH_DELAY);
+    }
+
+    function handleSearchKeyDown(event) {
+        if (event.key !== "Enter") {
+            return;
+        }
+
+        event.preventDefault();
+
+        clearPendingSearch();
+        navigateToSearch(searchText);
     }
 
     return (
@@ -33,9 +127,15 @@ export function SearchMenu({ isOpenSearch = false }) {
                 >
                     <Input
                         id="search-games"
+                        name="s"
                         type="search"
                         placeholder="Buscador"
+                        autoComplete="off"
                         autoFocus
+                        maxLength={100}
+                        value={searchText}
+                        onChange={handleSearchChange}
+                        onKeyDown={handleSearchKeyDown}
                         className="h-full w-full rounded-full border-0 bg-primary px-[30px] text-base text-primary-foreground shadow-none placeholder:text-primary-foreground/60 focus-visible:ring-0"
                     />
 

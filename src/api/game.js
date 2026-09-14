@@ -125,4 +125,60 @@ export class Game {
             );
         }
     }
+
+    async searchGames({ text, page = 1, pageSize = 9 } = {}) {
+        try {
+            const searchText = String(text ?? "").trim();
+
+            const currentPage =
+                Number.isInteger(Number(page)) && Number(page) > 0
+                    ? Number(page)
+                    : 1;
+
+            if (!searchText) {
+                return {
+                    data: [],
+                    meta: {
+                        pagination: {
+                            page: currentPage,
+                            pageSize,
+                            pageCount: 0,
+                            total: 0,
+                        },
+                    },
+                };
+            }
+
+            const params = new URLSearchParams();
+
+            params.set("filters[title][$containsi]", searchText);
+            params.set("pagination[page]", String(currentPage));
+            params.set("pagination[pageSize]", String(pageSize));
+            params.set("sort[0]", "publishedAt:desc");
+            params.set("populate", "*");
+
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}?${params.toString()}`;
+
+            const response = await fetch(url, {
+                next: {
+                    revalidate: 60,
+                },
+            });
+
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+
+                throw new Error(message);
+            }
+
+            return result;
+        } catch (error) {
+            throw new Error(`Error al buscar juegos: ${error.message}`);
+        }
+    }
 }

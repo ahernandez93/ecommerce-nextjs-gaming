@@ -5,7 +5,7 @@ import { SearchMenu } from "./SearchMenu";
 
 const platformCtrl = new Platform();
 
-export async function Menu({ isOpenSearch = false }) {
+export async function Menu() {
     let platforms = [];
 
     try {
@@ -39,7 +39,7 @@ export async function Menu({ isOpenSearch = false }) {
                 </Link>
             ))}
 
-            <SearchMenu isOpenSearch={isOpenSearch} />
+            <SearchMenu />
         </div>
     );
 }

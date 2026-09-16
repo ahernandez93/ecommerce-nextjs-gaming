@@ -1,6 +1,6 @@
 import { Heart } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 
 export function WishlistIcon({ className, active = true }) {
     return (

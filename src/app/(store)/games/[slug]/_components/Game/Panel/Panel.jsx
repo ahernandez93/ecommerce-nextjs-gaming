@@ -38,22 +38,29 @@ export function Panel({ game }) {
                 <div className="relative flex flex-col items-center rounded-[15px] bg-secondary/80 p-5 backdrop-blur-[15px]">
                     <h2 className="mb-2.5 text-2xl font-bold">{game.title}</h2>
 
-                    <div className="mb-10 flex rounded-full bg-secondary/80 px-[15px] py-1.5 backdrop-blur-[15px]">
+                    <div className="mb-10 items-center flex rounded-full bg-secondary/80 px-[15px] py-1.5 backdrop-blur-[15px]">
                         {platform && (
-                            <span className="mr-2.5 flex items-center border-r border-border pr-2.5 text-xs">
-                                {platform.icon?.url && (
-                                    <Image
-                                        src={platform.icon.url}
-                                        alt=""
-                                        aria-hidden="true"
-                                        width={18}
-                                        height={18}
-                                        className="mr-2.5 size-[18px] object-contain brightness-0 invert"
-                                    />
-                                )}
+                            <>
+                                <span className="flex items-center text-xs">
+                                    {platform.icon?.url && (
+                                        <Image
+                                            src={platform.icon.url}
+                                            alt=""
+                                            aria-hidden="true"
+                                            width={18}
+                                            height={18}
+                                            className="mr-2.5 size-[18px] object-contain brightness-0 invert"
+                                        />
+                                    )}
 
-                                {platform.title}
-                            </span>
+                                    {platform.title}
+                                </span>
+
+                                <span
+                                    aria-hidden="true"
+                                    className="mx-2.5 h-[18px] w-px bg-white/20"
+                                />
+                            </>
                         )}
 
                         <span className="flex items-center text-xs">

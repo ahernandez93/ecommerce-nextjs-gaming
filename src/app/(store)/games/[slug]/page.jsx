@@ -46,7 +46,19 @@ export default async function GamePage({ params }) {
                 image={game.wallpaper?.url}
                 alt={`Wallpaper de ${game.title}`}
             />
+
             <Game.Panel game={game} />
+
+            <Separator height={50} />
+
+            <Game.Info game={game} />
+
+            <Separator height={30} />
+
+            <Game.Media
+                video={game.video}
+                screenshots={game.screenshots ?? []}
+            />
 
             <Separator height={50} />
         </>

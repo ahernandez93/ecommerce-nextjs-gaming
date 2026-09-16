@@ -1,4 +1,6 @@
 import { Geist } from "next/font/google";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 

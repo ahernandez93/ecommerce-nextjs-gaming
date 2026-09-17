@@ -4,3 +4,4 @@ export * from "@/api/token";
 export * from "@/api/user";
 export * from "@/api/address";
 export * from "@/api/game";
+export * from "@/api/wishlist";

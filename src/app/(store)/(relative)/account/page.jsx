@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Info, Settings, Address } from "./_components";
+import { Info, Settings, Address, Wishlist } from "./_components";
 import { Container } from "@/components/Shared";
 
 export default function AccountPage() {
@@ -38,7 +38,7 @@ export default function AccountPage() {
         <Container>
             <Info user={user} />
 
-            <Tabs defaultValue="orders" className="mt-[50px]">
+            <Tabs defaultValue="orders" className="mb-[50px] mt-[50px]">
                 <div className="flex items-center border-b border-border">
                     <TabsList className="h-auto min-w-0 flex-1 justify-start rounded-none bg-transparent p-0">
                         <TabsTrigger
@@ -95,7 +95,7 @@ export default function AccountPage() {
                     value="wishlist"
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
-                    <p>Mi lista de deseos</p>
+                    <Wishlist />
                 </TabsContent>
 
                 <TabsContent

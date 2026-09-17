@@ -100,10 +100,8 @@ export function Panel({ game }) {
                     </Button>
 
                     <WishlistIcon
-                        className="
-                            absolute right-[15px] top-[15px]
-                            text-xl
-                        "
+                        gameDocumentId={game.documentId}
+                        className="absolute right-[15px] top-[15px] text-xl"
                     />
                 </div>
             </div>

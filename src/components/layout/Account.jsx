@@ -4,12 +4,12 @@ import { ShoppingCart, UserRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth, useCart } from "@/hooks";
 
 export function Account() {
     const router = useRouter();
     const { user } = useAuth();
-    const total = 5; // Replace with the actual total number of products in the cart 
+    const {total} = useCart();
 
     const goToLogin = () => {
         router.push("/join/sign-in");

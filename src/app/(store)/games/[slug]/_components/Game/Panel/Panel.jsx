@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Check, Tag } from "lucide-react";
 import { Container, WishlistIcon } from "@/components/Shared";
-import { Button } from "@/components/ui/button";
 import { fn } from "@/lib";
+import { AddToCartButton } from "./AddToCartButton";
 
 export function Panel({ game }) {
     const platform = game.platform;
@@ -95,9 +95,7 @@ export function Panel({ game }) {
                         </span>
                     </div>
 
-                    <Button type="button" className="h-12 w-full">
-                        Comprar ahora
-                    </Button>
+                    <AddToCartButton gameDocumentId={game.documentId} />
 
                     <WishlistIcon
                         gameDocumentId={game.documentId}

@@ -53,4 +53,39 @@ export class Cart {
             0,
         );
     }
+
+    changeQuantity(gameDocumentId, quantity) {
+        const games = this.getAll();
+
+        const updatedGames = games.map((game) =>
+            game.documentId === gameDocumentId
+                ? {
+                      ...game,
+                      quantity: Number(quantity),
+                  }
+                : game,
+        );
+
+        localStorage.setItem(ENV.CART, JSON.stringify(updatedGames));
+
+        return updatedGames;
+    }
+
+    delete(gameDocumentId) {
+        const games = this.getAll();
+
+        const updatedGames = games.filter(
+            (game) => game.documentId !== gameDocumentId,
+        );
+
+        localStorage.setItem(ENV.CART, JSON.stringify(updatedGames));
+
+        return updatedGames;
+    }
+
+    deleteAll() {
+        localStorage.removeItem(ENV.CART);
+
+        return [];
+    }
 }

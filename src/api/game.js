@@ -226,4 +226,39 @@ export class Game {
             throw new Error(`Error al obtener el juego: ${error.message}`);
         }
     }
+
+    async getGameByDocumentId(documentId) {
+        try {
+            const params = new URLSearchParams();
+
+            params.set("populate[0]", "cover");
+            params.set("populate[1]", "platform");
+
+            const url =
+                `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}` +
+                `/${encodeURIComponent(documentId)}` +
+                `?${params.toString()}`;
+
+            const response = await fetch(url, {
+                cache: "no-store",
+            });
+
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+
+                throw new Error(message);
+            }
+
+            return result?.data ?? null;
+        } catch (error) {
+            throw new Error(
+                `Error al obtener el juego del carrito: ${error.message}`,
+            );
+        }
+    }
 }

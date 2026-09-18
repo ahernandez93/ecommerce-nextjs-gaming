@@ -36,10 +36,34 @@ export function CartProvider({ children }) {
         setTotal(cartCtrl.count(storedCart));
     }
 
+    function changeQuantityItem(gameDocumentId, quantity) {
+        const updatedCart = cartCtrl.changeQuantity(gameDocumentId, quantity);
+
+        setCart(updatedCart);
+        setTotal(cartCtrl.count(updatedCart));
+    }
+
+    function deleteItem(gameDocumentId) {
+        const updatedCart = cartCtrl.delete(gameDocumentId);
+
+        setCart(updatedCart);
+        setTotal(cartCtrl.count(updatedCart));
+    }
+
+    function deleteAllItems() {
+        const updatedCart = cartCtrl.deleteAll();
+
+        setCart(updatedCart);
+        setTotal(0);
+    }
+
     const value = {
         cart,
         total,
         addCart,
+        changeQuantityItem,
+        deleteItem,
+        deleteAllItems,
         refreshCart,
     };
 

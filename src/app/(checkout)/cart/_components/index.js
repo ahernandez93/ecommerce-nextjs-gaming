@@ -1,5 +1,2 @@
-import { StepOne } from "./StepOne";
-
-export const Cart = {
-    StepOne,
-};
+export * from "./CartContent";
+export * from "./StepOne";

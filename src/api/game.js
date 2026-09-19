@@ -234,10 +234,7 @@ export class Game {
             params.set("populate[0]", "cover");
             params.set("populate[1]", "platform");
 
-            const url =
-                `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}` +
-                `/${encodeURIComponent(documentId)}` +
-                `?${params.toString()}`;
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.GAMES}/${encodeURIComponent(documentId)}?${params.toString()}`;
 
             const response = await fetch(url, {
                 cache: "no-store",

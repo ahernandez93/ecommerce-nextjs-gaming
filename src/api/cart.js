@@ -66,7 +66,10 @@ export class Cart {
                 : game,
         );
 
-        localStorage.setItem(ENV.CART, JSON.stringify(updatedGames));
+        localStorage.setItem(
+            ENV.STORAGE_KEYS.CART,
+            JSON.stringify(updatedGames),
+        );
 
         return updatedGames;
     }
@@ -78,13 +81,16 @@ export class Cart {
             (game) => game.documentId !== gameDocumentId,
         );
 
-        localStorage.setItem(ENV.CART, JSON.stringify(updatedGames));
+        localStorage.setItem(
+            ENV.STORAGE_KEYS.CART,
+            JSON.stringify(updatedGames),
+        );
 
         return updatedGames;
     }
 
     deleteAll() {
-        localStorage.removeItem(ENV.CART);
+        localStorage.removeItem(ENV.STORAGE_KEYS.CART);
 
         return [];
     }

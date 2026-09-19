@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Game } from "@/api";
 import { useCart } from "@/hooks";
 import { NoResult } from "@/components/Shared";
-import { Cart } from "..";
+import { StepOne } from "../StepOne";
 
 const gameCtrl = new Game();
 
@@ -66,7 +66,7 @@ export function CartContent({ currentStep }) {
     }
 
     if (currentStep === 1) {
-        return <Cart.StepOne games={games} />;
+        return <StepOne games={games} />;
     }
 
     return null;

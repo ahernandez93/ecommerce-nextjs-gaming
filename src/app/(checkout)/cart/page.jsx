@@ -1,4 +1,4 @@
-import { CartContent } from "./_components/CartContent";
+import { CartContent } from "./_components";
 
 function parseStep(value) {
     const parsedStep = Number.parseInt(value ?? "1", 10);

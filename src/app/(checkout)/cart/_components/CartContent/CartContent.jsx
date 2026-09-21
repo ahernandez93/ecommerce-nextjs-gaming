@@ -5,6 +5,8 @@ import { Game } from "@/api";
 import { useCart } from "@/hooks";
 import { NoResult } from "@/components/Shared";
 import { StepOne } from "../StepOne";
+import { StepTwo } from "../StepTwo";
+import { StepThree } from "../StepThree";
 
 const gameCtrl = new Game();
 
@@ -57,17 +59,23 @@ export function CartContent({ currentStep }) {
         };
     }, [cart]);
 
+    /* if (currentStep === 3) {
+        return <StepThree />;
+    }
+ */
     if (games === null) {
         return null;
     }
 
-    if (games.length === 0) {
+    /* if (games.length === 0) {
         return <NoResult text="No tienes juegos en la cesta" />;
-    }
+    } */
 
-    if (currentStep === 1) {
-        return <StepOne games={games} />;
-    }
-
-    return null;
+    return (
+        <>
+            {currentStep === 1 && <StepOne games={games} />}
+            {currentStep === 2 && <StepTwo games={games} />}
+            {currentStep === 3 && <StepThree />}
+        </>
+    );
 }

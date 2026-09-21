@@ -1,4 +1,4 @@
-import { ENV } from "@/lib";
+import { ENV, authFetch } from "@/lib";
 
 export class Cart {
     add(gameDocumentId) {
@@ -93,5 +93,39 @@ export class Cart {
         localStorage.removeItem(ENV.STORAGE_KEYS.CART);
 
         return [];
+    }
+
+    async paymentCart(token, products, idUser, address) {
+        try {
+            const url = `${ENV.API_URL}/${ENV.ENDPOINTS.PAYMENT_ORDER}`;
+
+            const response = await authFetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    token,
+                    products,
+                    idUser,
+                    addressShipping: address,
+                }),
+            });
+
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                const message =
+                    result?.error?.message ||
+                    result?.message ||
+                    `Error HTTP ${response.status}`;
+
+                throw new Error(message);
+            }
+
+            return result;
+        } catch (error) {
+            throw new Error(`Error al procesar el pago: ${error.message}`);
+        }
     }
 }

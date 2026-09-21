@@ -6,3 +6,4 @@ export * from "@/api/address";
 export * from "@/api/game";
 export * from "@/api/wishlist";
 export * from "@/api/cart";
+export * from "@/api/order";

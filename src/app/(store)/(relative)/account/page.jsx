@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Info, Settings, Address, Wishlist } from "./_components";
+import { Info, Settings, Address, Wishlist, Orders } from "./_components";
 import { Container } from "@/components/Shared";
 
 export default function AccountPage() {
@@ -88,7 +88,7 @@ export default function AccountPage() {
                     value="orders"
                     className="mt-6 rounded-lg border border-border bg-card p-6"
                 >
-                    <p>Mis pedidos</p>
+                    <Orders />
                 </TabsContent>
 
                 <TabsContent

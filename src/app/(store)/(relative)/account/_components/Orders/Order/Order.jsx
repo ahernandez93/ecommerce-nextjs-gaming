@@ -95,8 +95,8 @@ export function Order({ order }) {
                                     <Image
                                         src={product.cover.url}
                                         alt={`Portada de ${product.title}`}
-                                        width={100}
-                                        height={56}
+                                        width={product.cover.width}
+                                        height={product.cover.height}
                                         sizes="100px"
                                         className="
                                             mr-5 h-auto

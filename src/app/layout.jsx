@@ -10,7 +10,10 @@ const geistSans = Geist({
 });
 
 export const metadata = {
-    title: "Ecommerce Gaming",
+    title: {
+        default: "Ecommerce Gaming",
+        template: "%s | Ecommerce Gaming",
+    },
     description: "Tienda online de videojuegos",
 };
 

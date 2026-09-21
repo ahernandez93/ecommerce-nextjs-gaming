@@ -1,11 +1,6 @@
 import { Home } from "@/components/Home";
 import { BannerAd, BarTrust, Container, Separator } from "@/components/Shared";
 
-export const metadata = {
-    title: "Ecommerce Gaming",
-    description: "Tienda online de videojuegos",
-};
-
 const platformsId = {
     playstation: 2,
     xbox: 4,
